@@ -147,13 +147,6 @@ data.E0 = 1;    units.E0 = 'J';   label.E0 = 'reserve energy in egg'; bibkey.E0 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % uni-variate data
 
-%t-ah
-% data.Tah = [16 18 20; %incubation temperature
-%             2 1.5 1]; %age at hatching (d, fertilization to hatching)
-% units.Tah = {'degC', 'd'};     label.Tah = {'incubation temperature', 'age at hatching'};  bibkey.Tah = 'CarbFirm2018';
-% comment.Tah = 'fertilized eggs from natural spawning';
-
-
 % t-L age length data for early juveniles from RibeSara1999
 data.tL = [ ... %birth occurs at age 4 from fetilization, and at day 2 after hatching
 0	2.8
@@ -3176,6 +3169,339 @@ units.temp.tWd_f4 = 'K'; label.temp.tWd_f4 = 'temperature';
 % temp.tE2 = C2K(19.5);  units.temp.tE2 = 'K'; label.temp.tE2 = 'temperature';
 % 
 
+%%
+%Data time lenght from Jose 
+data.tLA = [ ... % time (d), total length (cm)
+0	13.3
+0	12
+0	12.5
+0	13.4
+61	17.5
+61	17.8
+75	16.9
+75	16.8
+75	18.4
+0	11.5
+0	10.7
+0	13.3
+0	12
+61	16.0
+61	16.7
+75	18.3
+75	17.1
+75	14.8
+0	12
+0	12.5
+0	10.1
+0	10.4
+61	14.5
+61	15.0
+75	17.2
+75	16.5];
+units.tLA   = {'d', 'cm'};  label.tLA = {'time', 'total length'};  
+temp.tLA    = C2K(19);  units.temp.tLA = 'K'; label.temp.tLA = 'temperature';
+length0.tLA = mean(data.tLA((data.tLA(:,1)==0),2)); units.length0.tLA = 'cm'; label.length0.tLA = 'initial length';
+bibkey.tLA = 'expA 19 C pH 8';
+comment.tLA = 'pH 8.0';
+
+data.tLB = [ ... % time (d), total length (cm)
+0	14.7
+0	16.5
+0	13.5
+0	14.3
+0	16
+61	20.1
+61	21.1
+75	18.4
+75	18.9
+75	20.3
+0	13.8
+0	14
+0	13.5
+0	13.6
+61	17.9
+61	18.3
+75	17.9
+75	16.7
+75	18.7
+0	12.7
+0	11.6
+0	13
+61	16.4
+75	16.1
+75	18.4];
+units.tLB   = {'d', 'cm'};  label.tLB = {'time', 'total length'};  
+temp.tLB    = C2K(19);  units.temp.tLB = 'K'; label.temp.tLB = 'temperature';
+length0.tLB = mean(data.tLB((data.tLB(:,1)==0),2)); units.length0.tLB = 'cm'; label.length0.tLB = 'initial length';
+bibkey.tLB = 'expB 19 C pH 7.7';
+comment.tLB = 'pH 7.7';
+% 
+data.tLC = [ ... % time (d), total length (cm)
+0	12
+0	13
+0	12.5
+0	11.5
+0	12.7
+61	17.3
+61	16.7
+75	16.2
+75	20.2
+0	13.8
+0	11.5
+0	12.4
+0	13.3
+61	15.7
+61	17.0
+75	18.3
+75	17.9
+75	17.8
+0	12
+0	12.5
+0	11.7
+0	12
+0	10.5
+61	18.8
+61	18.0
+75	17.1
+75	18.6];
+units.tLC   = {'d', 'cm'};  label.tLC = {'time', 'total length'};  
+temp.tLC    = C2K(23);  units.temp.tLC = 'K'; label.temp.tLC = 'temperature';
+length0.tLC = mean(data.tLC((data.tLC(:,1)==0),2)); units.length0.tLC = 'cm'; label.length0.tLC = 'initial length';
+bibkey.tLC = 'expC 23 C pH 8';
+comment.tLC = 'pH 8.0';
+% 
+data.tLD = [ ... % time (d), total length (cm)
+0	12.3
+0	13.7
+0	13.6
+0	12.8
+61	18.5
+61	17.6
+75	19.5
+75	19.0
+75	17.2
+0	13.2
+0	11.2
+0	13
+0	12
+0	13.5
+61	18.8
+61	16.0
+75	18.5
+75	17.2
+75	19.2
+0	15.3
+0	12.4
+0	12.8
+0	12.8
+61	20.7
+61	17.3
+75	18.9];
+units.tLD   = {'d', 'cm'};  label.tLD = {'time', 'total length'};  
+temp.tLD    = C2K(23);  units.temp.tLD = 'K'; label.temp.tLD = 'temperature';
+length0.tLD = mean(data.tLD((data.tLD(:,1)==0),2)); units.length0.tLD = 'cm'; label.length0.tLD = 'initial length';
+bibkey.tLD = 'expD 23 C pH 7.7';
+comment.tLD = 'pH 7.7';
+
+%% time wet weight Jose
+% 
+data.tWwA = [ ... % time (d), wet weight (g)
+0	27.88
+0	27.2
+0	20.95
+0	27.26
+0	34.19
+38	47.6
+38	37.32
+38	59
+38	48.15
+38	70.35
+61	95.32
+61	71.49
+75	57.53
+75	87.89
+75	74.11
+0	27.23
+0	19.16
+0	19.7
+0	26.85
+0	22.53
+25	37.18
+25	37.18
+25	31.13
+25	36.04
+25	26.91
+61	59.78
+61	60.54
+75	69.75
+75	71.31
+75	52.85
+0	15.82
+0	20.81
+0	18.34
+0	13.85
+11	23.96
+11	20.11
+11	27.5
+11	18.47
+61	65.24
+61	47.33
+75	53.58
+75	46.56];
+units.tWwA   = {'d', 'g'};  label.tWwA = {'time', 'wet weight'};   
+temp.tWwA    = C2K(19);  units.temp.tWwA = 'K'; label.temp.tWwA = 'temperature';
+length0.tWwA = mean(data.tLA((data.tLA(:,1)==0),2)); units.length0.tLA = 'cm'; label.length0.tLA = 'initial length';
+bibkey.tWwA = 'expA 19 C pH 8';
+comment.tWwA = 'pH 8.0';
+
+data.tWwB = [ ... % time (d), wet weight (g)
+0	33.86
+0	35.53
+0	30.66
+0	28.45
+0	43.9
+11	36.2
+11	49.8
+11	42.7
+11	37.27
+11	44.16
+61	94.96
+61	103.54
+75	59.22
+75	93.4
+75	88.31
+0	30.77
+0	29.83
+0	32.54
+0	26.61
+0	31.77
+25	51.74
+25	50.62
+25	50.32
+25	47.75
+25	41.93
+38	56.35
+38	54.06
+38	56.01
+38	56.46
+38	46.45
+61	78.97
+61	82
+75	79.04
+75	79.83
+75	79.64
+0	24.98
+0	20.38
+0	18.44
+0	24.05
+61	69.88
+75	58.33
+75	74.44];
+units.tWwB   = {'d', 'g'};  label.tWwB = {'time', 'wet weight'};   
+temp.tWwB    = C2K(19);  units.temp.tWwB = 'K'; label.temp.tWwB = 'temperature';
+length0.tWwB = mean(data.tLB((data.tLB(:,1)==0),2)); units.length0.tLB = 'cm'; label.length0.tLB = 'initial length';
+bibkey.tWwB = 'expB 19 C pH7.7';
+comment.tWwB = 'pH 7.7';
+% 
+data.tWwC = [ ... % time (d), wet weight (g)
+0	30.69
+0	29.37
+0	26.78
+0	21.02
+0	24.1
+38	55.08
+38	67.8
+38	61.3
+38	45.04
+61	77.27
+61	101.44
+75	70.28
+75	121.53
+0	26.52
+0	18.09
+0	22.54
+0	28.97
+0	25.42
+25	44.83
+25	32.14
+25	30.78
+25	31.54
+61	78.72
+61	87.9
+75	79.62
+75	76.43
+75	74.94
+0	23.56
+0	21.13
+0	16.94
+0	19.77
+0	15.81
+11	29.3
+11	32.55
+11	24.25
+11	26.7
+11	22
+61	101.18
+61	80.48
+75	80.36
+75	45.67
+75	105.41];
+units.tWwC   = {'d', 'g'};  label.tWwC = {'time', 'wet weight'};  
+temp.tWwC    = C2K(23);  units.temp.tWwC = 'K'; label.temp.tWwC = 'temperature';
+length0.tWwC = mean(data.tLC((data.tLC(:,1)==0),2)); units.length0.tLC = 'cm'; label.length0.tLC = 'initial length';
+bibkey.tWwC = 'expC 23 C pH 8';
+comment.tWwC = 'pH 8.0';
+% 
+data.tWwD = [ ... % time (d), wet weight (g)
+0	24.9
+0	23.34
+0	25.23
+0	26.95
+0	21.03
+61	84.71
+61	77.44
+75	85.83
+75	89.91
+75	58.73
+75	74.95
+0	24.33
+0	22.25
+0	20.29
+0	23.96
+0	25.33
+25	36.29
+25	44.32
+25	28.71
+25	49.39
+25	36.94
+38	36.27
+38	51.24
+38	60.24
+38	47.18
+38	46.26
+61	94.04
+61	78.32
+75	72.64
+75	77.86
+75	84.36
+0	34.19
+0	31.52
+0	23.83
+0	33.81
+11	46.78
+11	41.74
+11	39.4
+11	32.48
+61	118.18
+61	117.48
+75	102.33];
+units.tWwD   = {'d', 'g'};  label.tWwD = {'time', 'wet weight'};  
+temp.tWwD    = C2K(23);  units.temp.tWwD = 'K'; label.temp.tWwD = 'temperature';
+length0.tWwD = mean(data.tLD((data.tLD(:,1)==0),2)); units.length0.tLD = 'cm'; label.length0.tLD = 'initial length';
+bibkey.tWwD = 'expD 23 C pH .7';
+comment.tWwD = 'pH 7.7';
+
+
 
 %% set weights for all real data
 weights = setweights(data, []);
@@ -3191,6 +3517,15 @@ weights.Li = 10 * weights.Li;
 weights.Lp_f = 5 * weights.Lp_f;
 weights.Lp_m = 5 * weights.Lp_m;
 %
+%weights José Moreira
+weights.tLA = weights.tLA / 9;
+% weights.tLB = weights.tLB / 9;
+% weights.tLC = weights.tLC / 9;
+% weights.tLD = weights.tLD / 9;
+weights.tWwA = weights.tWwA / 9;
+% weights.tWwB = weights.tWwB / 9;
+weights.tWwC = weights.tWwC / 9;
+% weights.tWwD = weights.tWwD / 9;
 
 
 %% set pseudodata and respective weights
@@ -3198,6 +3533,7 @@ weights.Lp_m = 5 * weights.Lp_m;
 
 %% pack auxData and txtData for output
 auxData.temp = temp;
+auxData.length0 = length0;
 txtData.units = units;
 txtData.label = label;
 txtData.bibkey = bibkey;
@@ -3205,13 +3541,16 @@ txtData.comment = comment;
 
 %% Group plots
 set1 = {'tL','tL2'}; comment1 = {'RibeSara1999 and RibeEngr2017'};
-%set5 = {'tL3','tL4'}; comment5 = {'TeixCabr2010'};
 set2 ={'LWd','LWd2','LWd3'};comment2 = {'OrtiFune2019, RibeEngr2017 and YufeParr1999'};
 set3 = {'tWd','tWd2'}; comment3 = {'YufeParr1999,ParrYufe2001'};
 set4 = {'tWd_f1','tWd_f2','tWd_f3','tWd_f4'} ; comment4 = {'CañaFern1999'};
-%set5 = {'tE' 'tE2'}; comment5 = { 'ParrYufe2001 and YufeParr1999'} ;
-metaData.grp.sets = {set1, set2, set3, set4};%,set5} ;
-metaData.grp.comment = {comment1, comment2,comment3,comment4};%,comment5};
+set5 = {'tL3','tL4'}; comment5 = { 'females (red), males (blue)'};
+set6 = {'tLB','tLD'}; comment6 = {'B (red, 19C) and D (blue, 23 C), pH 7.7'}; % same temperature (19), different of pH
+set7 = {'tLA','tLC'}; comment7 = { 'A (red, 19C) and C (blue, 23C), pH 8'}; %same pH (8) different temp
+set8 = {'tWwA','tWwC'}; comment8 = {'A (red, 19C) and C (blue, 23C), pH 8'};
+set9 = {'tWwB','tWwD'}; comment9 = {'B (red, 19C) and D (blue, 23 C), pH 7.7'}; % same temperature (19), different of pH
+metaData.grp.sets = {set1, set2, set3, set4, set5, set6, set7,set8,set9};
+metaData.grp.comment = {comment1, comment2,comment3,comment4,comment5,comment6,comment7,comment8,comment9};
 
 %% Facts
 F1 = 'Senegalese sole females grow faster and mature later than males';
