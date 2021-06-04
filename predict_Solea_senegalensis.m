@@ -62,7 +62,16 @@ function [prdData, info] = predict_Solea_senegalensis(par, data, auxData)
  % TC_tM_N = tempcorr(temp.tM_N(1), T_ref,T_A); 
 %   TC_tE = tempcorr(temp.tE(1), T_ref, T_A);
 %   TC_tE2 = tempcorr(temp.tE2(1), T_ref, T_A);  
-  
+%data from jose
+   TC_A = tempcorr(temp.tWwA, T_ref, T_A);
+   TC_LA = tempcorr(temp.tLA, T_ref, T_A);
+   TC_LB = tempcorr(temp.tLB, T_ref, T_A);
+   TC_B = tempcorr(temp.tWwB, T_ref, T_A);
+   TC_LC = tempcorr(temp.tLC, T_ref, T_A);
+   TC_C = tempcorr(temp.tWwC, T_ref, T_A);
+   TC_LD = tempcorr(temp.tLD, T_ref, T_A);
+   TC_D = tempcorr(temp.tWwD, T_ref, T_A);
+%   
   %% % zero-variate data
 
   % life cycle
@@ -197,9 +206,11 @@ function [prdData, info] = predict_Solea_senegalensis(par, data, auxData)
 %   a_h = aUL(2,1);                             % d, age at birth
 %   Eah = a_h*ones(length(Tah(:,1)),1) ./ TC_Tah; % d, age at birth temp corrected   
   
-  %% time-length tL
-  
-  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B, info] = get_tj(pars_tj, f_tL);
+%%
+%
+% % time-length tL
+%   
+%   [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B, info] = get_tj(pars_tj, f_tL);
   
   %t-L RibeSara1999
   %time-length since hatching concatenated to juveniles (from day 12)
@@ -346,7 +357,110 @@ L_bj = L_b * exp(tWd_f4(tWd_f4(:,1) < tT_j,1) * rT_j/ 3); % cm length and weight
 L_jm = L_i - (L_i - L_j) * exp( - rT_B * (tWd_f4(tWd_f4(:,1) >= tT_j,1) - tT_j));   % cm, length after V1-morph period
 EWd_4 = 1e6 * [L_bj; L_jm].^3  * d_V * (1 + f_CanaFern4 * w); % ug, dry weight
   
+%% data from Jose Moreira 
+% 
+[tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M = k_M * TC_LA; rT_B = rho_B * kT_M;      
+  L_0_p = length0.tLA; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i-L_0)/(L_i-L_j)) / rT_B - tLA(1,1); %L_i and rT_B during experiment
+  L = L_i - (L_i - L_j) * exp( - rT_B * (tLA(:,1) + t_0)); % cm, struct length
+  ELwA = L/ del_M;  % cm, total length
+  
+      % time-length B
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M_s = k_M * (1+s_pH) * TC_LB; rho_B_s = rho_B * (g+f_exp) / (g+f_exp*(1+s_pH)); rT_B_s = rho_B_s * kT_M_s;      
+  L_i_s = L_i / (1+s_pH);
+  L_0_p = length0.tLB; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i_s-L_0)/(L_i_s-L_j)) / rT_B_s - tLB(1,1);
+  L = L_i_s - (L_i_s - L_j) * exp( - rT_B_s * (tLB(:,1) + t_0)); % cm, struct length
+  ELwB = L/ del_M;  % cm, total length
+%   
+      % time-length C
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M = k_M * TC_LC; rT_B = rho_B * kT_M;      
+  L_0_p = length0.tLC; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i-L_0)/(L_i-L_j)) / rT_B - tLC(1,1);
+  L = L_i - (L_i - L_j) * exp( - rT_B * (tLC(:,1) + t_0)); % cm, struct length
+  ELwC = L/ del_M;  % cm, total length
+%   
+%       % time-length D
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M_s = k_M * (1+s_pH) * TC_LD; rho_B_s = rho_B * (g+f_exp) / (g+f_exp*(1+s_pH)); rT_B_s = rho_B_s * kT_M_s;      
+  L_i_s = L_i / (1+s_pH);
+  L_0_p = length0.tLD; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i_s-L_0)/(L_i_s-L_j)) / rT_B_s - tLD(1,1);
+  L = L_i_s - (L_i_s - L_j) * exp( - rT_B_s * (tLD(:,1) + t_0)); % cm, struct length
+  ELwD = L/ del_M;  % cm, total length
 
+%time wet weight A
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M = k_M * TC_A; rT_B = rho_B * kT_M;      
+  L_0_p = length0.tWwA; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i-L_0)/(L_i-L_j)) / rT_B - tWwA(1,1);
+  L = L_i - (L_i - L_j) * exp( - rT_B * (tWwA(:,1) + t_0)); % cm, struct length
+  Ww = L.^3 * (1 + f_exp * w);
+  EWwA = Ww; %g, wet weight
+%   
+%     %time wet weight B
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M_s = k_M * (1+s_pH) * TC_B; rho_B_s = rho_B * (g+f_exp) / (g+f_exp*(1+s_pH)); rT_B_s = rho_B_s * kT_M_s;      
+  L_i_s = L_i / (1+s_pH);
+  L_0_p = length0.tWwB; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i_s-L_0)/(L_i_s-L_j)) / rT_B_s - tWwB(1,1);
+  L = L_i_s - (L_i_s - L_j) * exp( - rT_B_s * (tWwB(:,1) + t_0)); % cm, struct length
+  Ww = L.^3 * (1 + f_exp * w);
+  EWwB = Ww; %g, wet weight
+%   
+    %time wet weight C
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+  %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M = k_M * TC_C; rT_B = rho_B * kT_M;      
+  L_0_p = length0.tWwC; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i-L_0)/(L_i-L_j)) / rT_B - tWwC(1,1);
+  L = L_i - (L_i - L_j) * exp( - rT_B * (tWwC(:,1) + t_0)); % cm, struct length
+  Ww = L.^3 * (1 + f_exp * w);
+  EWwC = Ww; %g, wet weight
+%   
+%     %time wet weight D
+  [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B] = get_tj(pars_tj, f_exp); %before experiment (no stress factor)
+        %before experiment
+ %kT_M = k_M * TC_bPA; rT_B = rho_B * kT_M; %no need
+  L_j = L_m * l_j; L_i = L_m * l_i;
+        %during experiment
+  kT_M_s = k_M * (1+s_pH) * TC_D; rho_B_s = rho_B * (g+f_exp) / (g+f_exp*(1+s_pH)); rT_B_s = rho_B_s * kT_M_s;      
+  L_i_s = L_i / (1+s_pH);
+  L_0_p = length0.tWwD; L_0 = L_0_p * del_M;
+  t_0 = - log((L_i_s-L_0)/(L_i_s-L_j)) / rT_B_s - tWwD(1,1);
+  L = L_i_s - (L_i_s - L_j) * exp( - rT_B_s * (tWwD(:,1) + t_0)); % cm, struct length
+  Ww = L.^3 * (1 + f_exp * w);
+  EWwD = Ww; %g, wet weight
 
 %% %time energy content in larvae
 
@@ -386,7 +500,11 @@ EWd_4 = 1e6 * [L_bj; L_jm].^3  * d_V * (1 + f_CanaFern4 * w); % ug, dry weight
   prdData.LWw = ELWw;
 %   prdData.LWw2 = ELWw2;
 %   prdData.LWw3 = ELWw3;
-  prdData.LWd = ELWd1;
+
+% prdData.T_dw = EWd_j; 
+% prdData.Ttbj = Etbj;
+
+prdData.LWd = ELWd1;
   prdData.LWd2 = ELWd2;
   prdData.LWd3 = ELWd3;
   prdData.tWd = EWd;
@@ -395,7 +513,17 @@ EWd_4 = 1e6 * [L_bj; L_jm].^3  * d_V * (1 + f_CanaFern4 * w); % ug, dry weight
   prdData.tWd_f2 = EWd_2;
   prdData.tWd_f3 = EWd_3;
   prdData.tWd_f4 = EWd_4;
-  %prdData.tM_N = EM_N;
+  %data from Jose
+  prdData.tLA = ELwA;
+   prdData.tLB = ELwB;
+   prdData.tLC = ELwC;
+   prdData.tLD = ELwD;
+   prdData.tWwA = EWwA;
+   prdData.tWwB = EWwB;
+   prdData.tWwC = EWwC;
+   prdData.tWwD = EWwD;
+%other data 
+%   %prdData.tM_N = EM_N;
 %   prdData.tE = EE;
 %   prdData.tE2 = EE2;
 
